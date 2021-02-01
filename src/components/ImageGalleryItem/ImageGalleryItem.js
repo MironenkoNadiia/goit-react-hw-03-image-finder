@@ -2,23 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./imageGalleryItem.module.css";
 
-function ImageGalleryItem({ images, onClick }) {
+function ImageGalleryItem({
+  webSrc = "",
+  largeImageURL = "",
+  onClick,
+  alt = "",
+}) {
   return (
-    <>
-      {images.map((image) => {
-        const { id, webformatURL, largeImageURL } = image;
-        return (
-          <li className={styles.ImageGalleryItem} key={id}>
-            <img
-              className={styles.ImageGalleryItem - image}
-              src={webformatURL}
-              alt=""
-              onClick={() => onClick(largeImageURL)}
-            />
-          </li>
-        );
-      })}
-    </>
+    <li className={styles.ImageGalleryItem}>
+      <img
+        src={webSrc}
+        alt={alt}
+        onClick={() => onClick(largeImageURL)}
+        className="ImageGalleryItem-image"
+      />
+    </li>
   );
 }
 

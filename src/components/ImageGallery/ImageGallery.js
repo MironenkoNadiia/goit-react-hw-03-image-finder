@@ -102,7 +102,15 @@ export default class ImageGallery extends Component {
     return (
       <>
         <ul className={styles.ImageGallery}>
-          <ImageGalleryItem images={images} onClick={this.handleImageClick} />
+          {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+            <ImageGalleryItem
+              key={id}
+              webSrc={webformatURL}
+              alt={tags}
+              largeImageURL={largeImageURL}
+              onClick={this.handleImageClick}
+            />
+          ))}
         </ul>
         {status === "Pending" && (
           <div>
