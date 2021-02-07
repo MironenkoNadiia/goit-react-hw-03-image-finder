@@ -19,10 +19,10 @@ export default class ImageGallery extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.name;
     const nextName = this.props.name;
-    const key = "19297457-6b61957df3c7b30b2bbaf73bd";
+    const keys = "19297457-6b61957df3c7b30b2bbaf73bd";
 
     if (prevName !== nextName) {
-      const url = `https://pixabay.com/api/?q=${nextName}&page=1&key=${key}&image_type=photo&orientation=horizontal&per_page=12`;
+      const url = `https://pixabay.com/api/?q=${nextName}&page=1&key=${keys}&image_type=photo&orientation=horizontal&per_page=12`;
       fetch(url)
         .then((response) => {
           if (response.ok) {
@@ -31,24 +31,23 @@ export default class ImageGallery extends Component {
         })
         .then((data) => {
           if (data.hits.length === 0) {
-            swal("Нет данных по Вашему запросу");
+            swal("Ничего не найдено");
           }
           if (data.hits.length > 0) {
             this.setState({ images: data.hits, status: "Resolved" });
           }
         })
-        .catch((error) => this.setState({ status: "Rejected" }))
-        .finally(() => {
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          });
-        });
+        .catch((error) => this.setState({ error, status: "Rejected" }));
     }
+
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
 
     if (prevState.page !== this.state.page) {
       this.setState({ status: "Pending" });
-      const url = `https://pixabay.com/api/?q=${nextName}&page=${this.state.page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`;
+      const url = `https://pixabay.com/api/?q=${nextName}&page=${this.state.page}&key=${keys}&image_type=photo&orientation=horizontal&per_page=12`;
       fetch(url)
         .then((response) => {
           if (response.ok) {
@@ -61,13 +60,7 @@ export default class ImageGallery extends Component {
             status: "Resolved",
           }));
         })
-        .catch((error) => this.setState({ status: "Rejected" }))
-        .finally(() => {
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          });
-        });
+        .catch((error) => this.setState({ error, status: "Rejected" }));
     }
   }
 

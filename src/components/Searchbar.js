@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import swal from "sweetalert";
-import {ImSearch} from "react-icons/im";
+import { ImSearch } from "react-icons/im";
 
 export default class Searchbar extends Component {
   state = {
@@ -31,7 +31,7 @@ export default class Searchbar extends Component {
             <span>Search</span>
           </button>
 
-          <input 
+          <input
             type="text"
             value={this.state.name}
             onChange={this.handleNameChange}

@@ -7,7 +7,6 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 export default class App extends Component {
   state = {
     name: "",
-    
   };
 
   handleFormSubmit = (name) => {
